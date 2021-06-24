@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+    <!-- upload image -->
+    <div class="container" >
+        <div class="row" style="margin-bottom: 60px"></div>
+        <div id="upload-image">
+            <p style="padding-left: 30px;">Upload image</p>
+            <div class="col-md-6">
+                <form id ="myAwesomeDropzone1" action="{{ url_for('upload') }}" class="dropzone needsclick" method="POST" enctype="multipart/form-data">
+                    <DIV class="dz-message needsclick" style="font-size: large; margin-top: 90px;">
+                        <strong style="color: crimson;">SOURCE IMAGE</strong><br>
+                        (Drop your image here or click to upload.)<br>
+                    </DIV>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form id ="myAwesomeDropzone2" action="{{ url_for('upload') }}" class="dropzone needsclick" method="POST" enctype="multipart/form-data">
+                    <DIV class="dz-message needsclick" style="font-size: large; margin-top: 90px;">    
+                        <strong style="color: crimson;">TARGET IMAGE</strong><br>
+                        (Drop your image here or click to upload.)<br>
+                    </DIV>
+                </form> 
+            </div>
+        </div>
+    </div>
+    <style>
+    #upload-image{
+        font-size: xx-large;
+        border:3px solid rgb(206, 206, 206); 
+        padding-bottom: 310px;
+        padding-top: 20px;
+        border-radius: 20px;
+    }
+    </style>
+
+    <!-- button -->
+    <div style="margin-left: 1000px; margin-top: 10px; ">        
+        <button class="button" style="margin-bottom: 0; vertical-align:middle; color: darkcyan; border: 2px solid darkcyan" onclick="F()"><span>FS-GAN</span></button>
+        <button class="button" style="margin-bottom: 0; vertical-align:middle; color: darkorange; border: 2px solid darkorange" onclick="G()"><span>Possion-Editing</span></button>
+        <br>
+        <button class="button" style="vertical-align:middle; color: crimson; border: 2px solid crimson; width: 486px" onclick="H()"><span>BOTH</span></button>
+    </div>    
+
+    <!-- result image -->
+    <div style="margin-top: 50px; text-align: center; " class='x'>
+        <div id='result1' style="display: none; margin:0 20px;"  >
+            <span id="gan-text">FS-GAN</span>
+            <img src="{{image}}" id="gan" width="25%">
+        </div>
+        <div id='result2' style="display: none;  margin:0 20px;" >
+            <span id="possion-text">Possion-Editing</span>
+            <img src="{{image}}" id="possion" width="25%">
+        </div>
+    </div>
+    <style>
+        #gan{
+            padding: 5px;
+            border: 2px solid darkcyan;
+            margin: 20px;
+        }
+        #possion{
+            padding: 5px;
+            border: 2px solid darkorange;
+            margin: 20px;
+        }
+        #gan-text{
+            color:darkcyan;
+            font-size: 0.6cm;
+        }
+        #possion-text{
+            color:darkorange;
+            font-size: 0.6cm;
+        }
+    </style>
+    <script>
+        function F(){
+            var dz=Dropzone.forElement("#myAwesomeDropzone1"); 
+            var dz2=Dropzone.forElement("#myAwesomeDropzone2"); 
+            /* 如果两张图没有都准备好，报错 */
+            if(dz.getQueuedFiles().length!=1||dz2.getQueuedFiles().length!=1){
+                alert("Source and target image required!");
+            }
+            else{
+                dz.processQueue();
+                dz2.processQueue();
+                document.getElementById('result2').style.display  = "none";  
+                document.getElementById('result1').style.display = "inline";  
+                function get_image() {
+                    $.ajax({
+                        url:'/get-image',
+                        type:"GET",
+                        dataType:'JSON',
+                        success:function(arg) {
+                            var i=document.getElementById("gan")
+                            i.src=arg+"?v="+Math.random()
+                        }
+                    })
+                }
+                setInterval(get_image,1900);   // 2秒
+            }
+
+        }
+
+        function G(){
+            var dz=Dropzone.forElement("#myAwesomeDropzone1"); 
+            var dz2=Dropzone.forElement("#myAwesomeDropzone2"); 
+            /* 如果两张图没有都准备好，报错 */
+            if(dz.getQueuedFiles().length!=1||dz2.getQueuedFiles().length!=1){
+                alert("Source and target image required!");
+            }
+            else{
+                dz.processQueue();
+                dz2.processQueue();
+                document.getElementById('result1').style.display  = "none";  
+                document.getElementById('result2').style.display = "inline";  
+                function get_image() {
+                    $.ajax({
+                        url:'/get-image2',
+                        type:"GET",
+                        dataType:'JSON',
+                        success:function(arg) {
+                            var i=document.getElementById("possion")
+                            i.src=arg+"?v="+Math.random()
+                        }
+                    })
+                }
+                setInterval(get_image,1900);   // 2秒
+            }
+        }
+
+        function H(){
+            var dz=Dropzone.forElement("#myAwesomeDropzone1"); 
+            var dz2=Dropzone.forElement("#myAwesomeDropzone2"); 
+            /* 如果两张图没有都准备好，报错 */
+            if(dz.getQueuedFiles().length!=1||dz2.getQueuedFiles().length!=1){
+                alert("Source and target image required!");
+            }
+            else{
+                dz.processQueue();
+                dz2.processQueue();
+                document.getElementById('result1').style.display = "inline";  
+                document.getElementById('result2').style.display = "inline";  
+                function get_image() {
+                    $.ajax({
+                        url:'/get-image2',
+                        type:"GET",
+                        dataType:'JSON',
+                        success:function(arg) {
+                            var i=document.getElementById("possion")
+                            i.src=arg+"?v="+Math.random()
+                        }
+                    })
+                    $.ajax({
+                        url:'/get-image',
+                        type:"GET",
+                        dataType:'JSON',
+                        success:function(arg) {
+                            var i=document.getElementById("gan")
+                            i.src=arg+"?v="+Math.random()
+                        }
+                    })
+                }
+                setInterval(get_image,1900);   // 2秒
+            }
+
+        }
+
+    </script>
+    <script>
+        Dropzone.options.myAwesomeDropzone1 = {
+            autoProcessQueue: false,
+            init: function() {
+                this.on("addedfile", function() {
+                    if (this.files[1]!=null){
+                        this.removeFile(this.files[0]);
+                    }
+                });
+                this.on("sending",function(file,xhr,formData){
+                    formData.append("ts","source");
+                });
+            },
+            thumbnailWidth: 180,
+            thumbnailHeight: 180,
+        }
+        Dropzone.options.myAwesomeDropzone2 = {
+            autoProcessQueue: false,
+            init: function() {
+                this.on("addedfile", function() {
+                    if (this.files[1]!=null){
+                        this.removeFile(this.files[0]);
+                    }
+                });
+                this.on("sending",function(file,xhr,formData){
+                    formData.append("ts","target");
+                });
+            },
+            thumbnailWidth: 180,
+            thumbnailHeight: 180,
+        }
+
+    </script>
+    
+</main>
+
+{% endblock %}

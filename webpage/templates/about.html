@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+
+
+    <div id="para">
+        <p>这是北京大学2020学年春季学期算法设计与分析课程的大作业。</p>
+        <p>作者：吴臻，曾子雨，周慕歆；指导老师：施柏鑫；助教：崔轩宁。</p>
+        <p>我们的工作主要是基于对抗生成网络(Generative Adversarial 
+            Network)以及泊松编辑(Possion Image Editing)的换脸算法实现。其中前者基于Yuval Nirkin的<a href="https://arxiv.org/abs/1908.05932">工作</a>，
+            而后者则来源于Patrick Pérez发表于SIGGRAPH 2003的经典<a href="https://dl.acm.org/doi/10.1145/882262.882269">论文</a>。
+            我们使用了GUI和网页等载体以便用户交互。
+        </p>
+        <p>
+            在此之外，我们也进一步实现了图像风格变换等工作，完善了从换脸到修图这一流程。
+        </p>
+        <p>
+            由于时间，技术和设备(MONEY)的限制，我们的工作还存在如下问题：
+        </p>
+        <p>
+            1. GAN换脸耗时较长；
+        </p>
+        <p>
+            2. 网页与计算模型部署在小组成员的台式机上，无法长时间开放。
+        </p>
+        <p>
+            以上问题可以通过购置一台V100服务器解决，或许未来的某一天我们能够做到这一点。
+        </p>
+        <p>
+            最后，感谢老师和助教给予的指导和帮助，也感谢论文作者精彩的工作，让我们能顺利完成本项目。
+        </p><br>
+        <p style="text-align: right; padding-right: 80px;">项目作者</p>
+        <p style="text-align: right; padding-right: 50px;">2021年6月11日</p>
+    </div> 
+
+    <style>
+        #para{
+            padding-top: 70px;
+            padding-left:130px;
+            padding-right:130px;
+            font-size: large;
+            text-indent:2em;
+        }
+    </style>
+ 
+
+
+</main>
+{% endblock %}
