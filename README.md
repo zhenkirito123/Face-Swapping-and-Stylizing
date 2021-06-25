@@ -16,11 +16,17 @@
 
 `POSSION`文件夹包含了使用泊松编辑换脸的代码
 
-`FSGAN`文件夹包含了使用对抗生成网络换脸的代码，基本上来自于论文原作者的<\a href="https://github.com/YuvalNirkin/fsgan">实现</a>。注意我们没有上传网络的参数，若有需求请按照原作者项目中的流程向原作者申请，并按照其使用说明置于`FSGAN/fsgan/weights`内。
+`FSGAN`文件夹包含了使用对抗生成网络换脸的代码，基本上来自于论文原作者的</a href="https://github.com/YuvalNirkin/fsgan">实现</a>。注意我们没有上传网络的参数，若有需求请按照原作者项目中的流程向原作者申请，并按照其使用说明置于`FSGAN/fsgan/weights`内。
 
 `webpage`文件夹包含了网页部分代码
 
 `GUI.py`是GUI部分的代码
+
+### 环境配置
+
+对抗生成网络的环境要求请查看原作者的</a href="https://github.com/YuvalNirkin/fsgan">实现</a>
+
+泊松图像编辑的环境要求：dlib, opencv-python(4.4.0.46), numpy
 
 ### 使用方法
 
